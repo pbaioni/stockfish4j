@@ -45,7 +45,8 @@ public class EngineEvaluation {
 			String value = sc.next();
 			switch (scoreType) {
 			case "cp":
-				this.evaluation = Double.parseDouble(value) / 100;
+				int factor = getTurn().equals("b") ? -1 : 1;
+				this.evaluation = factor * Double.parseDouble(value) / 100;
 				break;
 			case "mate":
 				this.mateLength = Integer.parseInt(value);
