@@ -26,7 +26,7 @@ public class Stockfish4jProperties {
 	
 	private String engineVerbosity = "engineVerbosity";
 
-	private Stockfish4jProperties() {
+	public Stockfish4jProperties() {
 
 		try (InputStream input = Stockfish4jProperties.class.getClassLoader()
 				.getResourceAsStream(STOCKFISH4J_PROPERTIES_FILE)) {
