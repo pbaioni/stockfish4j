@@ -17,9 +17,7 @@ public class StockfishService {
 
 	private static final Logger LOGGER = Logger.getLogger("Stockfish4j");
 
-	private Stockfish4jProperties stockfish4jProperties;
-
-	private static ArrayBlockingQueue<StockfishEngine> engines;
+    private static ArrayBlockingQueue<StockfishEngine> engines;
 
 	private ExecutorService executorService;
 
@@ -27,10 +25,9 @@ public class StockfishService {
 
 	private List<EngineTask> done;
 
-	public StockfishService(Stockfish4jProperties props) {
-		
-		this.stockfish4jProperties = props;
-		executorService = Executors.newFixedThreadPool(stockfish4jProperties.getStockfishInstances());
+	public StockfishService(Stockfish4jProperties stockfish4jProperties) {
+
+        executorService = Executors.newFixedThreadPool(stockfish4jProperties.getStockfishInstances());
 		engines = new ArrayBlockingQueue<StockfishEngine>(stockfish4jProperties.getStockfishInstances());
 		tasks = new ArrayList<EngineTask>();
 		done = new ArrayList<>();

@@ -2,8 +2,6 @@ package stockfish4j.service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -14,13 +12,13 @@ public class Stockfish4jProperties {
 
 	private static Stockfish4jProperties instance;
 
-	private Properties stockfish4jProperties;
+	private Properties propertiesMap;
 
 	private String STOCKFISH4J_PROPERTIES_FILE = "stockfish4j.properties";
 
 	private String enginePath = "enginePath";
 
-	private String stockfishInstances = "stockfishInstances";
+	private String stockfishInstances = "stockfishInstancies";
 
 	private String timeout = "timeout";
 	
@@ -31,14 +29,14 @@ public class Stockfish4jProperties {
 		try (InputStream input = Stockfish4jProperties.class.getClassLoader()
 				.getResourceAsStream(STOCKFISH4J_PROPERTIES_FILE)) {
 
-			stockfish4jProperties = new Properties();
+			propertiesMap = new Properties();
 
 			if (input == null) {
 				LOGGER.info("Sorry, unable to find file stockfish4j.properties");
 				return;
 			}
 
-			stockfish4jProperties.load(input);
+			propertiesMap.load(input);
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -57,37 +55,47 @@ public class Stockfish4jProperties {
 
 	public String getEnginePath() {
 
-		return stockfish4jProperties.getProperty(enginePath, "./engine/stockfish");
+		return propertiesMap.getProperty(enginePath, "./engine/stockfish");
 
 	}
 
 	public void setEnginePath(String enginePath) {
-		stockfish4jProperties.setProperty(enginePath, enginePath);
+		propertiesMap.setProperty(this.enginePath, enginePath);
 	}
 
 	public Integer getStockfishInstances() {
 
-		return Integer.parseInt(stockfish4jProperties.getProperty(stockfishInstances, "1"));
+		return Integer.parseInt(propertiesMap.getProperty(stockfishInstances, "1"));
 
 	}
 	
 	public void setStockfishInstances(int stockfishInstances) {
-		stockfish4jProperties.setProperty(this.stockfishInstances, Integer.toString(stockfishInstances));
+		propertiesMap.setProperty(this.stockfishInstances, Integer.toString(stockfishInstances));
 	}
 
 	public int getTimeout() {
-		return Integer.parseInt(stockfish4jProperties.getProperty(timeout, "30"));
+		return Integer.parseInt(propertiesMap.getProperty(timeout, "30"));
 	}
 
 	public void setTimeout(int timeout) {
-		stockfish4jProperties.setProperty(this.timeout, Integer.toString(timeout));
+		propertiesMap.setProperty(this.timeout, Integer.toString(timeout));
 	}
 	
 	public int getEngineVerbosity() {
-		return Integer.parseInt(stockfish4jProperties.getProperty(engineVerbosity, "1"));
+		return Integer.parseInt(propertiesMap.getProperty(engineVerbosity, "1"));
 	}
 
 	public void setEngineVerbosity(int engineVerbosity) {
-		stockfish4jProperties.setProperty(this.engineVerbosity, Integer.toString(engineVerbosity));
+		propertiesMap.setProperty(this.engineVerbosity, Integer.toString(engineVerbosity));
+	}
+
+	@Override
+	public String toString() {
+		return "Stockfish4jProperties{" +
+				"enginePath='" + getEnginePath() + '\'' +
+				", timeout='" + getTimeout() + '\'' +
+				", stockfishInstances='" + getStockfishInstances() + '\'' +
+				", engineVerbosity='" + getEngineVerbosity() + '\'' +
+				'}';
 	}
 }
